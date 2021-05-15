@@ -1,6 +1,7 @@
 import pygame
 
 gravity = .5
+black = (0,0,0)
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y):
@@ -14,7 +15,7 @@ class Ball(pygame.sprite.Sprite):
         self.image = pygame.Surface((width, height))
         self.image.fill((255, 255, 255))
 
-        pygame.draw.circle(self.image, (0,0,0), (radius, radius), radius)
+        pygame.draw.circle(self.image, black, (radius, radius), radius)
 
         self.rect = self.image.get_rect()
         self.rect.center = (start_x,start_y)
