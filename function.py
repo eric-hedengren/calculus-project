@@ -1,17 +1,25 @@
 import sympy
 
+def derivative_check(function, answer):
+    form_func = sympy.sympify(function)
+    func_der = form_func.diff(x)
+
+    form_ans = sympy.sympify(answer)
+
+    if func_der == form_ans:
+        return True
+    else:
+        return False
+
+def integral_check(function, answer):
+    form_func = sympy.sympify(function)
+    func_int = form_func.integrate(x)
+
+    form_ans = sympy.sympify(answer)
+
+    if func_int == form_ans:
+        return True
+    else:
+        return False
+
 x = sympy.Symbol('x')
-
-func = x**3
-func_der = func.diff(x)
-func_int = func.integrate(x)
-
-print(func_int, func, func_der)
-
-f = sympy.lambdify(x, func)
-fd = sympy.lambdify(x, func_der)
-fi = sympy.lambdify(x, func_int)
-
-print(f(2))
-print(fd(2))
-print(fi(2))

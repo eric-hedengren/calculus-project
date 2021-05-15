@@ -20,6 +20,10 @@ background = pygame.Surface(screen.get_size())
 background.fill(white)
 screen.blit(background, (0,0))
 
+# Functions
+functions = ['x^3','sin(x)']
+current_function = functions[0]
+
 # Ball Sprite
 ball = Ball(400,200)
 sprite_group = pygame.sprite.Group(ball)
@@ -41,7 +45,7 @@ while running:
             running = False
 
         for button in buttons:
-            button.handle_event(event)
+            button.handle_event(event, current_function)
 
     screen.fill(white)
 
