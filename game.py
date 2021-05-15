@@ -7,7 +7,7 @@ clock = pygame.time.Clock()
 # Display
 pygame.display.set_caption('Calculus Roll')
 
-screen = pygame.display.set_mode((640, 480))
+screen = pygame.display.set_mode((1280,720))
 background = pygame.Surface(screen.get_size())
 background.fill((255,255,255))
 screen.blit(background, (0, 0))
