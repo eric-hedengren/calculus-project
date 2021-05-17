@@ -29,14 +29,20 @@ class Button:
 
                 elif event.key == pygame.K_RETURN:
                     if self.template == 'Differentiate':
-                        if derivative_check(function, self.text):
-                            print('correct')
+                        response = derivative_check(function, self.text)
+                        if response:
+                            self.text = ''
+                            return response
+                        else:
+                            self.text = 'error'
 
                     elif self.template == 'Integrate':
-                        if integral_check(function, self.text):
-                            print('correct')
-
-                    self.text = ''
+                        response = integral_check(function, self.text)
+                        if response:
+                            self.text = ''
+                            return response
+                        else:
+                            self.text = 'error'
 
                 else:
                     self.text += event.unicode

@@ -5,6 +5,7 @@ from button import Button
 # General
 pygame.init()
 clock = pygame.time.Clock()
+font = pygame.font.Font(None, 50)
 pygame.display.set_caption('Calculus Roll')
 
 # Colors
@@ -22,7 +23,7 @@ screen.blit(background, (0,0))
 
 # Functions
 functions = ['x^3','sin(x)']
-current_function = functions[0]
+current_function = functions[1]
 
 # Ball Sprite
 ball = Ball(400,200)
@@ -45,7 +46,9 @@ while running:
             running = False
 
         for button in buttons:
-            button.handle_event(event, current_function)
+            response = button.handle_event(event, current_function)
+            if response:
+                current_function = response
 
     screen.fill(white)
 
@@ -55,6 +58,9 @@ while running:
 
     for button in buttons:
         button.draw(screen)
+
+    function_image = font.render(current_function, True, black)
+    screen.blit(function_image,(500,10))
 
     pygame.display.flip()
     clock.tick(60)

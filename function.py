@@ -7,9 +7,7 @@ def derivative_check(function, answer):
     form_ans = sympy.sympify(answer)
 
     if func_der == form_ans:
-        return True
-    else:
-        return False
+        return str(func_der)
 
 def integral_check(function, answer):
     form_func = sympy.sympify(function)
@@ -18,8 +16,6 @@ def integral_check(function, answer):
     form_ans = sympy.sympify(answer)
 
     if func_int == form_ans:
-        return True
-    else:
-        return False
+        return str(func_int)
 
 x = sympy.Symbol('x')
