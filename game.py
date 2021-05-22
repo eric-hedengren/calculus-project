@@ -39,11 +39,10 @@ int_box = Button(screen_width-button_width-10, button_height+20, button_width, b
 buttons = [dif_box,int_box]
 
 # Main Loop
-running = True
-while running:
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            raise SystemExit
 
         for button in buttons:
             response = button.handle_event(event, current_function)
