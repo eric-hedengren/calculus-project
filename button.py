@@ -33,16 +33,12 @@ class Button:
                         if response:
                             self.text = ''
                             return response
-                        else:
-                            self.text = 'error'
 
                     elif self.template == 'Integrate':
                         response = integral_check(function, self.text)
                         if response:
                             self.text = ''
                             return response
-                        else:
-                            self.text = 'error'
 
                 else:
                     self.text += event.unicode

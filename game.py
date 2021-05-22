@@ -49,6 +49,8 @@ while running:
             response = button.handle_event(event, current_function)
             if response:
                 current_function = response
+            else:
+                pass # display error message
 
     screen.fill(white)
 
