@@ -1,4 +1,5 @@
 import pygame
+import function
 from ball import Ball
 from button import Button
 
@@ -13,10 +14,10 @@ black = (0,0,0)
 white = (255,255,255)
 
 # Display
-screen_width = 1280
-screen_length = 720
+screen_length = 1280
+screen_height = 720
 
-screen = pygame.display.set_mode((screen_width,screen_length))
+screen = pygame.display.set_mode((screen_length,screen_height))
 background = pygame.Surface(screen.get_size())
 background.fill(white)
 screen.blit(background, (0,0))
@@ -30,13 +31,22 @@ ball = Ball(400,200)
 sprite_group = pygame.sprite.Group(ball)
 
 # Buttons
-button_width = 300
+button_length = 300
 button_height = 50
 
-dif_box = Button(screen_width-button_width-10, 10, button_width, button_height, 'Differentiate')
-int_box = Button(screen_width-button_width-10, button_height+20, button_width, button_height, 'Integrate')
+dif_box = Button(screen_length-button_length-10, 10, button_length, button_height, 'Differentiate')
+int_box = Button(screen_length-button_length-10, button_height+20, button_length, button_height, 'Integrate')
 
 buttons = [dif_box,int_box]
+
+# Graph
+function_graph = pygame.PixelArray(screen)
+
+f = function.function_point(current_function)
+
+for xp in range(1,screen_length,2):
+    yp = int(50*f(xp/10))+int(screen_height/2)
+    function_graph[xp][yp] = black
 
 # Main Loop
 while True:
@@ -48,10 +58,13 @@ while True:
             response = button.handle_event(event, current_function)
             if response:
                 current_function = response
-            else:
-                pass # display error message
 
+    '''
+    #pygame.display.update()
+    
     screen.fill(white)
+
+    #pygame.display.update()
 
     #sprite_group.clear(screen, background)
     sprite_group.update()
@@ -60,8 +73,9 @@ while True:
     for button in buttons:
         button.draw(screen)
 
-    function_image = font.render(current_function, True, black)
-    screen.blit(function_image,(500,10))
+    function_text = font.render(current_function, True, black)
+    screen.blit(function_text,(500,10))
+    '''
 
     pygame.display.flip()
     clock.tick(60)
