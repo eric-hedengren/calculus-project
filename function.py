@@ -1,21 +1,20 @@
 import sympy
 
 def derivative_check(function, answer):
-    form_func = sympy.sympify(function)
-    func_der = form_func.diff(x)
-
+    form_der = sympy.sympify(function).diff(x)
     form_ans = sympy.sympify(answer)
 
-    if func_der == form_ans:
-        return str(func_der)
+    if form_der == form_ans:
+        return str(form_der)
 
 def integral_check(function, answer):
-    form_func = sympy.sympify(function)
-    func_int = form_func.integrate(x)
-
+    form_int = sympy.sympify(function).integrate(x)
     form_ans = sympy.sympify(answer)
 
-    if func_int == form_ans:
-        return str(func_int)
+    if form_int == form_ans:
+        return str(form_int)
+
+def function_point(function):
+    return sympy.lambdify(x, function)
 
 x = sympy.Symbol('x')
