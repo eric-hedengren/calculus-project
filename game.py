@@ -24,7 +24,7 @@ screen.blit(background, (0,0))
 
 # Functions
 functions = ['x^3','sin(x)']
-current_function = functions[1]
+current_function = functions[0]
 
 # Ball Sprite
 ball = Ball(400,200)
@@ -44,8 +44,10 @@ function_graph = pygame.PixelArray(screen)
 
 f = function.function_point(current_function)
 
-for xp in range(1,screen_length,2):
-    yp = int(50*f(xp/10))+int(screen_height/2)
+for xp in range(screen_length):
+    yp = -int(50*f(xp/64))+int(screen_height/2)
+    if yp < 0 or yp > screen_height:
+        continue
     function_graph[xp][yp] = black
 
 # Main Loop
