@@ -25,3 +25,4 @@ class Ball(pygame.sprite.Sprite):
     def update(self):
         self.speed[1] += gravity
         self.rect = self.rect.move(self.speed)
+        

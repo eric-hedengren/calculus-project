@@ -20,11 +20,11 @@ background.fill(white)
 screen.blit(background, (0,0))
 
 # Functions
-functions = ['-x^(1/2)','sin(x)','x^2']
-current_function = functions[1]
+functions = ['-x^(1/2)','sin(x)','x^2','0']
+current_function = functions[3]
 
 # Ball Sprite
-ball = Ball(screen_length/2,200)
+ball = Ball(screen_length/2,250)
 sprite_group = pygame.sprite.Group(ball)
 
 # Buttons
@@ -38,8 +38,8 @@ buttons = [dif_box,int_box]
 
 # Graph
 def new_graph(function):
-    graph = pygame.Surface((screen_length, screen_height))
-    graph.fill(white)
+    graph = pygame.Surface((screen_length, screen_height), pygame.SRCALPHA, 32)
+    #graph.fill(white)
     f = calculate.function_point(function)
 
     def calc_y(x):
