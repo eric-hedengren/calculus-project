@@ -24,7 +24,7 @@ functions = ['-x^(1/2)','sin(x)','x^2','0']
 current_function = functions[1]
 
 # Ball Sprite
-ball = Ball(screen_length/2,250)
+ball = Ball(screen_length/2,100)
 sprite_group = pygame.sprite.Group(ball)
 
 # Buttons
@@ -37,13 +37,14 @@ int_box = Button(screen_length-button_length-10, button_height+20, button_length
 buttons = [dif_box,int_box]
 
 # Graph
-def new_graph(function):
+f = calculate.function_point(current_function)
+
+def calc_y(x):
+    return -(int(50*f(x/100)))+int(screen_height/2)
+
+def new_graph():
     graph = pygame.Surface((screen_length, screen_height), pygame.SRCALPHA, 32)
     #graph.fill(white)
-    f = calculate.function_point(function)
-
-    def calc_y(x):
-        return -(int(50*f(x/100)))+int(screen_height/2)
 
     x1 = 1
     y1 = calc_y(x1)
@@ -68,8 +69,7 @@ def new_graph(function):
 
     return graph
 
-graph = new_graph(current_function)
-
+graph = new_graph()
 
 # Main Loop
 while True:
@@ -81,14 +81,21 @@ while True:
             response = button.handle_event(event, current_function)
             if response:
                 current_function = response
-                graph = new_graph(current_function)
+                f = calculate.function_point(current_function)
+                graph = new_graph()
+                sprite_group.remove(ball)
+                ball = Ball(screen_length/2,100)
+                sprite_group.add(ball)
 
     screen.fill(white)
 
     screen.blit(graph,(0,0))
 
+    coll_loca = calc_y(640)
+    collision = (640,coll_loca)
+
     #sprite_group.clear(screen, background)
-    sprite_group.update()
+    sprite_group.update(collision)
     sprite_group.draw(screen)
 
     for button in buttons:

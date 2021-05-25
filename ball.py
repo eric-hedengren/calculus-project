@@ -22,11 +22,11 @@ class Ball(pygame.sprite.Sprite):
         self.rect.center = (start_x,start_y)
         self.speed = [0,0]
 
-    def update(self):
-        if self.rect.center[1] > 345:
+    def update(self, collision):
+        if self.rect.center[1]+15 >= collision[1]:
             self.speed[1] = -self.speed[1]
-        if self.rect.center[1] > 350:
-            self.speed[1] = 0
+            if self.rect.center[1]+15 >= collision[1]+5:
+                self.speed[1] = 0
 
         self.speed[1] += gravity
         self.rect = self.rect.move(self.speed)
