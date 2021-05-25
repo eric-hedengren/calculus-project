@@ -1,7 +1,7 @@
 import pygame
+from colors import *
 
-gravity = .5
-black = (0,0,0)
+gravity = 0
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y):
@@ -9,17 +9,18 @@ class Ball(pygame.sprite.Sprite):
 
         diameter = 30
         radius = diameter/2
-        width = diameter
+        length = diameter
         height = diameter
 
-        self.image = pygame.Surface((width, height))
-        self.image.fill((255, 255, 255))
+        self.image = pygame.Surface((length, height), pygame.SRCALPHA, 32)
+        #self.image = self.image.convert_alpha()
 
         pygame.draw.circle(self.image, black, (radius, radius), radius)
+        
 
         self.rect = self.image.get_rect()
         self.rect.center = (start_x,start_y)
-        self.speed = [0,0]
+        self.speed = [0,1]
 
     def update(self):
         self.speed[1] += gravity

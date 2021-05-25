@@ -1,13 +1,13 @@
 import pygame
-from function import derivative_check, integral_check
+from calculate import derivative_check, integral_check
+from colors import *
 
 pygame.init()
 font = pygame.font.Font(None, 50)
-black = (0,0,0)
 
 class Button:
-    def __init__(self, x, y, w, h, template):
-        self.rect = pygame.Rect(x, y, w, h)
+    def __init__(self, x, y, l, h, template):
+        self.rect = pygame.Rect(x, y, l, h)
         self.active = False
         self.template = template
         self.text = ''

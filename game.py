@@ -1,5 +1,6 @@
 import pygame
-import function
+import calculate
+from colors import *
 from ball import Ball
 from button import Button
 
@@ -8,10 +9,6 @@ pygame.init()
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 50)
 pygame.display.set_caption('Calculus Roll')
-
-# Colors
-black = (0,0,0)
-white = (255,255,255)
 
 # Display
 screen_length = 1280
@@ -23,11 +20,11 @@ background.fill(white)
 screen.blit(background, (0,0))
 
 # Functions
-functions = ['x^3','sin(x)']
-current_function = functions[0]
+functions = ['-x^(1/2)','sin(x)','x^2']
+current_function = functions[1]
 
 # Ball Sprite
-ball = Ball(400,200)
+ball = Ball(screen_length/2,200)
 sprite_group = pygame.sprite.Group(ball)
 
 # Buttons
@@ -40,15 +37,39 @@ int_box = Button(screen_length-button_length-10, button_height+20, button_length
 buttons = [dif_box,int_box]
 
 # Graph
-function_graph = pygame.PixelArray(screen)
+def new_graph(function):
+    graph = pygame.Surface((screen_length, screen_height))
+    graph.fill(white)
+    f = calculate.function_point(function)
 
-f = function.function_point(current_function)
+    def calc_y(x):
+        return -(int(50*f(x/400)))+int(screen_height/2)
 
-for xp in range(screen_length):
-    yp = -int(50*f(xp/64))+int(screen_height/2)
-    if yp < 0 or yp > screen_height:
-        continue
-    function_graph[xp][yp] = black
+    x1 = 1
+    y1 = calc_y(x1)
+
+    for x2 in range(2,screen_length):
+        y2 = calc_y(x2)
+        if y1 < 0 and y1 > screen_height and y2 < 0 and y2 > screen_height:
+            continue
+        elif 0 < y1 < screen_height and y2 < 0:
+            y2 = 0
+        elif 0 < y1 < screen_height and y2 > screen_height:
+            y2 = screen_height-1
+        elif 0 < y2 < screen_height and y1 < 0:
+            y1 = 0
+        elif 0 < y2 < screen_height and y1 > screen_height:
+            y1 = screen_height-1
+
+
+        pygame.draw.line(graph, black, (x1,y1),(x2,y2))
+        x1 = x2
+        y1 = y2
+
+    return graph
+
+graph = new_graph(current_function)
+
 
 # Main Loop
 while True:
@@ -60,13 +81,11 @@ while True:
             response = button.handle_event(event, current_function)
             if response:
                 current_function = response
+                graph = new_graph(current_function)
 
-    '''
-    #pygame.display.update()
-    
     screen.fill(white)
 
-    #pygame.display.update()
+    screen.blit(graph,(0,0))
 
     #sprite_group.clear(screen, background)
     sprite_group.update()
@@ -77,7 +96,6 @@ while True:
 
     function_text = font.render(current_function, True, black)
     screen.blit(function_text,(500,10))
-    '''
 
     pygame.display.flip()
     clock.tick(60)
