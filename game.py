@@ -21,7 +21,7 @@ screen.blit(background, (0,0))
 
 # Functions
 functions = ['-x^(1/2)','sin(x)','x^2','0']
-current_function = functions[3]
+current_function = functions[1]
 
 # Ball Sprite
 ball = Ball(screen_length/2,250)
@@ -43,7 +43,7 @@ def new_graph(function):
     f = calculate.function_point(function)
 
     def calc_y(x):
-        return -(int(50*f(x/400)))+int(screen_height/2)
+        return -(int(50*f(x/100)))+int(screen_height/2)
 
     x1 = 1
     y1 = calc_y(x1)
