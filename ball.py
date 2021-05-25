@@ -1,7 +1,7 @@
 import pygame
 from colors import *
 
-gravity = .1
+gravity = .5
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y):
@@ -25,6 +25,8 @@ class Ball(pygame.sprite.Sprite):
     def update(self):
         if self.rect.center[1] > 345:
             self.speed[1] = -self.speed[1]
+        if self.rect.center[1] > 350:
+            self.speed[1] = 0
 
         self.speed[1] += gravity
         self.rect = self.rect.move(self.speed)
